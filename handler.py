@@ -44,10 +44,11 @@ def decompress():
     filename = input(f'{COLOR_RED}[>] {COLOR_WHITE}')
     print(f'{COLOR_GREEN}[*] Directory to decompress:{COLOR_WHITE}')
     path = input(f'{COLOR_RED}[>] {COLOR_WHITE}')
-    
+
     with tar_open(f'{filename}.tar.gz') as tarball:
         tarball.extractall(path=path)
         tarball.close()
+    print(f'{COLOR_GREEN}File {filename}.tar.gz decompressed in {path}{COLOR_WHITE}')
 
 
 def core():
