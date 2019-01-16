@@ -14,7 +14,7 @@ VERSION = '1.0.1'
 def banner():
     system('clear')
     text = f'''
-    {COLOR_GREEN}Compression & Decompression Tool{COLOR_WHITE}\n
+    {COLOR_GREEN}GZ Compression & Decompression Tool{COLOR_WHITE}\n
     {COLOR_CYAN}Created By: Rubens M. Gomes{COLOR_WHITE}
     {COLOR_CYAN}Version: {VERSION}{COLOR_WHITE}
     '''
