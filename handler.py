@@ -9,12 +9,12 @@ COLOR_RED = '\033[31m'
 COLOR_GREEN = '\033[32m'
 COLOR_CYAN = '\033[36m'
 COLOR_WHITE = '\033[0m'
-VERSION = '1.0.0'
+VERSION = '1.0.1'
 
 def banner():
     system('clear')
     text = f'''
-    {COLOR_GREEN}GZIP Compression & Decompression Tool{COLOR_WHITE}\n
+    {COLOR_GREEN}Compression & Decompression Tool{COLOR_WHITE}\n
     {COLOR_CYAN}Created By: Rubens M. Gomes{COLOR_WHITE}
     {COLOR_CYAN}Version: {VERSION}{COLOR_WHITE}
     '''
@@ -28,14 +28,13 @@ def compress():
     filename = input(f'{COLOR_RED}[>] {COLOR_WHITE}')
 
     with tar_open(f'{filename}.tar.gz', 'w:gz') as tarball:
-        [
-            [
-                tarball.add(path_join(dirpath, f))
-                for f in filenames
-            ]
-            for dirpath, _, filenames in walk(path)
-        ]
-        tarball.close()
+        def add_file(directory, f):
+            full_path = path_join(directory, f)
+            print(f'{COLOR_WHITE}{full_path}{COLOR_WHITE}')
+            tarball.add(full_path)
+
+        [[add_file(dirpath, f) for f in filenames] for dirpath, _, filenames in walk(path)]
+        
     print(f'{COLOR_GREEN}File {filename}.tar.gz created{COLOR_WHITE}')
 
 
@@ -45,9 +44,9 @@ def decompress():
     print(f'{COLOR_GREEN}[*] Directory to decompress:{COLOR_WHITE}')
     path = input(f'{COLOR_RED}[>] {COLOR_WHITE}')
 
-    with tar_open(f'{filename}.tar.gz') as tarball:
+    with tar_open(f'{filename}.tar.gz') as tarball: 
         tarball.extractall(path=path)
-        tarball.close()
+
     print(f'{COLOR_GREEN}File {filename}.tar.gz decompressed in {path}{COLOR_WHITE}')
 
 
